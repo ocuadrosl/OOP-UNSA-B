@@ -1,4 +1,5 @@
 #include <iostream> //global files
+#include <memory>
 #include "Vehicle.h" //local files
 
 /*
@@ -7,6 +8,7 @@ Por defecto c++ pasa argumentos por valor -> hace una copia
 */
 void print(const Vehicle& vehicle) //& solo en la funcion
 {
+
     std::cout << vehicle.GetNumberOfSits() << std::endl;
     std::cout << vehicle.GetColor() << std::endl;
     return;
@@ -16,18 +18,34 @@ void print(const Vehicle& vehicle) //& solo en la funcion
 int main()
 {
 
-    //Todo objeto tiene un direccion en la heap de tamno 8-bits
-    Vehicle moto;
-    print(moto);
+    auto carSmartPtr = std::make_unique<Vehicle>(1, "Blue"); //usar ESTA FORMA
 
-    Vehicle car1{4, "Blue"};
-    Vehicle car2;
-    //print(car2); //copiando, en caso de no ser referencia
+    std::cout<<carSmartPtr->GetColor()<<std::endl;
+    Vehicle car = *carSmartPtr;
+    print(*carSmartPtr);
 
-    car2 = car1; //igualando
 
-    print(car2);
+ /*   //Todo objeto tiene un direccion en la heap de tamno 8-bits
+    Vehicle moto; //stack
 
+    //NO usar Raw Pointers!!!
+    {
+        Vehicle** motoPtr = new Vehicle*;
+        *motoPtr = new Vehicle;
+        delete *motoPtr;
+        delete  motoPtr;
+    }
+
+*/
+    //no usar nunca!!!
+/*    {
+        int *array = new int[10];
+        array[0] = 2;
+        std::cout<<array[0]<<std::endl;
+        delete[] array;
+    }
+
+*/
     return 0;
 }
 

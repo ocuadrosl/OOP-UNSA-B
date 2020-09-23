@@ -3,6 +3,7 @@
 
 #include <cinttypes>
 #include <iostream>
+#include <memory>
 
 class Vehicle
 {
@@ -23,12 +24,13 @@ public:
     uint16_t GetNumberOfSits() const;
     std::string GetColor() const;
 
+    ~Vehicle(){std::cout<<"Destroyed"<<std::endl;} //liberar la memoria del objeto -> stack o de la heap
+
 
 private:
 
     uint16_t NumberOfSits{1};
     std::string Color{"White"};
-
 
 
 };

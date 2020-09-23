@@ -2,6 +2,7 @@
 
 Vehicle::Vehicle()
 {
+
     std::cout<<"Default"<<std::endl;
 }
 
