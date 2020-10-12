@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.13.0, 2020-09-23T17:52:42. -->
+<!-- Written by QtCreator 4.13.1, 2020-10-11T23:04:05. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -363,7 +363,7 @@
     <value type="bool" key="RunConfiguration.UseMultiProcess">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="bool" key="RunConfiguration.UseTerminal">false</value>
+    <value type="bool" key="RunConfiguration.UseTerminal">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/oscar/Documents/UNSA/oop/B/src/build-OOP-UNSA-B-Desktop_Qt_5_9_9_GCC_64bit-Debug</value>
    </valuemap>

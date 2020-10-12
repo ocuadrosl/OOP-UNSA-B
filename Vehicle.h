@@ -11,8 +11,13 @@ class Vehicle
 
 public:
     Vehicle(); //default
-    Vehicle(uint16_t numberOfSits, std::string color); //explicit
-    Vehicle(const Vehicle& otherVehicle); //copy
+
+    Vehicle(uint16_t numberOfSits,
+            uint16_t numberOfWheels,
+            std::string color); //explicit
+
+    Vehicle(const Vehicle& otherVehicle); //copy -> lvalue
+    Vehicle(Vehicle&& otherVehicle);//rvalue
 
     //sobrecarga el operador =
     Vehicle& operator=(const Vehicle& otherVehicle);
@@ -22,15 +27,19 @@ public:
     void SetColor(std::string color);
 
     uint16_t GetNumberOfSits() const;
+    uint16_t GetNumberOfWheels() const;
     std::string GetColor() const;
 
     ~Vehicle(){std::cout<<"Destroyed"<<std::endl;} //liberar la memoria del objeto -> stack o de la heap
 
 
-private:
+    protected:
 
     uint16_t NumberOfSits{1};
+    uint16_t NumberOfWheels{1};
     std::string Color{"White"};
+
+
 
 
 };

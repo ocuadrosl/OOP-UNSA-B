@@ -1,6 +1,11 @@
 #include <iostream> //global files
 #include <memory>
 #include "Vehicle.h" //local files
+#include "Car.h"
+#include <vector>
+#include "Queen.h"
+#include "Pawn.h"
+
 
 /*
 Por defecto c++ pasa argumentos por valor -> hace una copia
@@ -8,44 +13,71 @@ Por defecto c++ pasa argumentos por valor -> hace una copia
 */
 void print(const Vehicle& vehicle) //& solo en la funcion
 {
+    std::cout << vehicle.GetNumberOfSits()   << std::endl;
+    std::cout << vehicle.GetNumberOfWheels() << std::endl;
+    std::cout << vehicle.GetColor() << std::endl;
+    return;
+}
 
+void notMyPrint(Vehicle vehicle) //& solo en la funcion
+{
     std::cout << vehicle.GetNumberOfSits() << std::endl;
     std::cout << vehicle.GetColor() << std::endl;
     return;
 }
 
 
+int foo(int& x)
+{
+    std::cout<<"lvalue"<<std::endl;
+    return ++x;
+}
+
+void foo(int&& x)
+{
+    //std::cout<<"rvalue"<<std::endl;
+    x-=-1;
+}
+
+
+
+
 int main()
 {
 
-    auto carSmartPtr = std::make_unique<Vehicle>(1, "Blue"); //usar ESTA FORMA
+  /*  using PiecePtr = std::shared_ptr<Piece>;
 
-    std::cout<<carSmartPtr->GetColor()<<std::endl;
-    Vehicle car = *carSmartPtr;
-    print(*carSmartPtr);
+    PiecePtr pawn1 = std::make_shared<Pawn>("White");
+    PiecePtr pawn2 = std::make_unique<Pawn>("White");
+    PiecePtr pawn3 = std::make_unique<Pawn>("White");
+    PiecePtr pawn4 = std::make_unique<Pawn>("White");
+    PiecePtr pawn5 = std::make_unique<Pawn>("White");
+    PiecePtr pawn6 = std::make_unique<Pawn>("White");
 
+    pawn2 = std::make_shared<Queen>("");
 
- /*   //Todo objeto tiene un direccion en la heap de tamno 8-bits
-    Vehicle moto; //stack
-
-    //NO usar Raw Pointers!!!
-    {
-        Vehicle** motoPtr = new Vehicle*;
-        *motoPtr = new Vehicle;
-        delete *motoPtr;
-        delete  motoPtr;
-    }
-
+    std::cout<<pawn6->GetID()<<std::endl;
 */
-    //no usar nunca!!!
-/*    {
-        int *array = new int[10];
-        array[0] = 2;
-        std::cout<<array[0]<<std::endl;
-        delete[] array;
-    }
 
-*/
+
+
+
+
+
+
+    //no puedo crear objetos de la clase base-> polimorfismo
+    //Piece piece;
+
+
+    //verbosity
+
+
+
+
+
+
+
+
     return 0;
 }
 
