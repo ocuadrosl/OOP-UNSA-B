@@ -1,5 +1,6 @@
 #include "MyVector.h"
-
+namespace oopb
+{
 MyVector::MyVector(const std::size_t& size):
     Data{ std::vector<int>(size, {}) }
 {
@@ -8,7 +9,7 @@ MyVector::MyVector(const std::size_t& size):
 
 const int& MyVector::operator[] (unsigned index) const
 {
-    return Data[index];
+   return Data[index];
 }
 
 int& MyVector::operator[](unsigned index)
@@ -69,10 +70,55 @@ std::ostream& operator<< (std::ostream& output,  const MyVector& v)
     return output;
 }
 
+bool operator==(const MyVector& a, const MyVector& b)
+{
+    for(unsigned i=0; i < b.Data.size(); ++i)
+    {
+        if(a.Data[i] != b.Data[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool operator!=(const MyVector& a, const MyVector& b)
+{
+   return !(a==b);
+}
+
+bool operator < (const MyVector& a, const MyVector& b)
+{
+    return  std::accumulate(a.Data.begin(), a.Data.end(), 0) <
+            std::accumulate(b.Data.begin(), b.Data.end(), 0);
+}
+
+bool operator > (const MyVector& a, const MyVector& b)
+{
+    return b < a;
+    //return !(a<b);
+    //return !(a<b) || (a==b);
+}
+
+bool operator <= (const MyVector& a, const MyVector& b)
+{
+    return !(a>b);
+    //return a==b || a<b; //royer
+    //return a < b && a==b; //alexander
+    //return a==b || a < b; //kelvin
+    //return a == b || a < b; //emilio
+}
+
+bool operator >= (const MyVector& a, const MyVector& b)
+{
+    return !(a<b);
+    //return !(b>a); //stephany
+    //return a==b || a>b; //melany
 
 
+}
 
-
+};
 
 
 

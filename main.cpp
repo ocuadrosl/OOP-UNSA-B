@@ -121,8 +121,6 @@ void TestV1()
    }
 
 
-
-
 }
 
 
@@ -142,31 +140,30 @@ void TestV2(const std::function<float(float&)>& areaFunc, unsigned size)
         std::cout<<a<<"\n";
     }
 
-
 }
+void var(const oopb::MyVector& a)
+{
 
+    std::cout << a[2] <<"\n";
+}
 
 
 int main()
 {
 
+    oopb::MyVector a{10}, b{10};
 
-    MyVector a{10}, b{10};
-
-    //a.At(1) = 23;
-
-    a[1] = 17;
-
-    auto c = a + b + a + b + 5 + a + 6;
+    a[1] = 10;
+    b[1] = 9;
 
 
-
-   // std::cout << c[1] <<"\n";
-
-    std::cout << c;
+    a.At(1) = 9;
 
 
+    std::cout << a[2] <<"\n";
+    std::cout << b <<"\n";
 
+    std::cout << (b >= a)<<std::endl;
 
 
    /* std::function<float(float&)> areaCFun = AreaCircle;
