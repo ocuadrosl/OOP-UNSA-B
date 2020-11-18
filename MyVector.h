@@ -18,6 +18,8 @@ public:
     MyVector()=delete;
     MyVector(const std::size_t& size);
 
+    std::size_t GetSize()const { return Data.size();}
+
     const int& operator[] (unsigned index) const;
     int& operator[] (unsigned index);
 
@@ -26,6 +28,7 @@ public:
     friend MyVector operator+(const MyVector& a, const MyVector& b);
     friend MyVector operator+(const MyVector& a, int nro);
     friend MyVector operator+(int nro, const MyVector& a);
+
     friend std::ostream& operator<< (std::ostream& output,  const MyVector& v);
 
     friend bool operator==(const MyVector& a, const MyVector& b);

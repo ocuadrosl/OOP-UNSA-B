@@ -115,7 +115,6 @@ bool operator >= (const MyVector& a, const MyVector& b)
     //return !(b>a); //stephany
     //return a==b || a>b; //melany
 
-
 }
 
 };

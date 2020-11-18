@@ -7,8 +7,15 @@
 #include "Pawn.h"
 #include "FunctionObject.h"
 #include "MyVector.h"
+#include "Utils.h"
+#include "OperatorOverloading.h"
+#include "Factorial.h"
+#include "Fibonacci.h"
+#include "BubbleSort.h"
+
 
 #include <functional>
+
 
 
 /*
@@ -141,9 +148,14 @@ void TestV2(const std::function<float(float&)>& areaFunc, unsigned size)
     }
 
 }
+
+void var(int x)
+{
+    std::cout << x <<"\n";
+}
+
 void var(const oopb::MyVector& a)
 {
-
     std::cout << a[2] <<"\n";
 }
 
@@ -151,20 +163,75 @@ void var(const oopb::MyVector& a)
 int main()
 {
 
+    constexpr int x = 5;
+    std::vector<int> data(x, 0);
+    data[4] = 0;
+    data[3] = 1;
+    data[2] = -5;
+    data[1] = 3;
+    data[0] = 4;
+
+    /*BubbleSortClassic<std::vector<int>, x-1> (data);
+    */
+
+
+    BubbleSort<std::vector<int>, 5>::Sort(data);
+    for(auto val: data)
+    {
+       std::cout<<val<<"\n";
+    }
+
+
+    //auto fi = Fibonacci<1>::Result;
+    //std::cout<<fi<<std::endl;
+
+
+    //auto fa = FactorialRegular(10);
+    //auto fac = Factorial<10>::Result;
+
+    //std::cout<<fac<<"\n";
+
+
+/*
+    //implicit cast!!!!
+
     oopb::MyVector a{10}, b{10};
+
+    a[1] = 4;
+    b[1] = 40;
+
+
+    std::vector<int> v(10,1), w(10,2);
+
+    //alias types
+    using MyVector  = oopb::MyVector; //alias tipo de dato
+    using stdVector = std::vector<int>; //alias tipo de dato
+
+    //alias functions
+    const auto& EuclideanDistance = utils::EuclideanDistance<MyVector, stdVector, 10>;
+
+
+    auto dm  = EuclideanDistance(a, v);
+    auto dm2 = EuclideanDistance(a, v);
+
+
+    auto ds = utils::EuclideanDistance<std::vector<int>, std::vector<int>, 10>(v, w);
+
+    std::cout<<ds<<"\n";
+*/
+
+    /*oopb::MyVector a{10}, b{10};
 
     a[1] = 10;
     b[1] = 9;
 
-
     a.At(1) = 9;
-
 
     std::cout << a[2] <<"\n";
     std::cout << b <<"\n";
 
     std::cout << (b >= a)<<std::endl;
-
+    */
 
    /* std::function<float(float&)> areaCFun = AreaCircle;
     std::function<float(float&)> areaCFO  = FunctionObject();
@@ -174,17 +241,12 @@ int main()
     TestV2(areaCFO, 10);
    */
 
-
-
-
 /*
     [](){};
     int x=10;
     auto lamnda = [x](int y){return x+y;};
     std::cout<<lamnda(2);
 */
-
-
 
     return 0;
 }
