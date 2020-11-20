@@ -161,7 +161,7 @@ void var(const oopb::MyVector& a)
 
 
 int main()
-{
+{/*
 
     constexpr int x = 5;
     std::vector<int> data(x, 0);
@@ -171,8 +171,8 @@ int main()
     data[1] = 3;
     data[0] = 4;
 
-    /*BubbleSortClassic<std::vector<int>, x-1> (data);
-    */
+    BubbleSortClassic<std::vector<int>, x-1> (data);
+
 
 
     BubbleSort<std::vector<int>, 5>::Sort(data);
@@ -180,10 +180,17 @@ int main()
     {
        std::cout<<val<<"\n";
     }
+*/
 
 
-    //auto fi = Fibonacci<1>::Result;
-    //std::cout<<fi<<std::endl;
+
+    constexpr unsigned x=10;
+    unsigned y=11;
+
+    auto fi = Fibonacci<x>::Result;
+    auto fic = FibonacciConst(x);
+
+    std::cout<<fic<<std::endl;
 
 
     //auto fa = FactorialRegular(10);
