@@ -16,6 +16,11 @@
 
 #include <functional>
 
+#include "ComplexNumber.h"
+#include "Taxiab.h"
+#include "Pell.h"
+#include "Matrix.h"
+
 
 
 /*
@@ -104,6 +109,7 @@ void TestV1()
    FunctionObject areaCircle;
    std::vector<float> radius(10);
 
+
    for(auto& r: radius)
    {
        r = std::rand()%100;
@@ -161,7 +167,44 @@ void var(const oopb::MyVector& a)
 
 
 int main()
-{/*
+{
+
+
+    myThread::Matrix<ComplexNumber> m{10,90000000};
+
+    m[0][0] = {-10, 4};
+    m[1][1] = {20, 9};
+
+    //std::cout<<m.ComputeInnerSum()<<"\n";
+    std::cout<<m.ComputeInnerSumThread()<<"\n";
+    std::cout<<m.ComputeInnerSumThreadV2()<<"\n";
+
+
+
+
+
+
+
+
+/*
+    std::cout<<Pell<5>::Result<<"\n";
+*/
+
+/*
+    Taxiab taxiab;
+    std::cout<<taxiab({1,2,3}, {3,2,1})<<"\n";
+    std::cout<<taxiab({1,2,3}, {7,2,1})<<"\n";
+    std::cout<<taxiab({1,2,3}, {3,2,1})<<"\n";
+*/
+
+/*
+    ComplexNumber a{2, 7}, b{3, -4}, test{0,0};
+
+    auto c = a * b ;
+
+    std::cout<<test<<"\n";
+*/
+    /*
 
     constexpr int x = 5;
     std::vector<int> data(x, 0);
@@ -184,14 +227,14 @@ int main()
 
 
 
-    constexpr unsigned x=10;
+  /*  constexpr unsigned x=10;
     unsigned y=11;
 
     auto fi = Fibonacci<x>::Result;
     auto fic = FibonacciConst(x);
 
     std::cout<<fic<<std::endl;
-
+*/
 
     //auto fa = FactorialRegular(10);
     //auto fac = Factorial<10>::Result;
