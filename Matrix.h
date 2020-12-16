@@ -10,7 +10,7 @@
 namespace myThread
 {
 template <typename DataType>
-class Matrix
+class Matrix //outer class
 {
     using RowType = std::vector<DataType>;
     using MatrixType  = std::vector<RowType>;
@@ -30,6 +30,60 @@ public:
     DataType ComputeInnerSum();
     DataType ComputeInnerSumThread();
     DataType ComputeInnerSumThreadV2(); //C++ style
+
+
+    class Iterator; //TODO  implement it!!!
+
+    //out
+    Iterator Begin() //TODO  implement it!!!
+    {
+        return  Iterator{Data, 0};
+    }
+    Iterator End() //To-do
+    {
+        return Iterator{Data, Rows*Columns};
+    }
+
+    class Iterator //inner class
+    {
+    public:
+        Iterator(Matrix::MatrixType& data, unsigned index):
+            Data{data},
+            CurrentIndex{index}
+        {};
+
+        DataType& operator*()
+        {
+            //convert array index to matrix index type
+            unsigned row = CurrentIndex / Data[0].size();
+            unsigned col = CurrentIndex % Data[0].size();
+            return Data[row][col];
+        }
+
+        const DataType& operator*() const
+        {
+
+            //convert array index to matrix index type
+            unsigned row = CurrentIndex / Data[0].size();
+            unsigned col = CurrentIndex % Data[0].size();
+            return Data[row][col];
+        }
+
+
+    private:
+        Matrix::MatrixType& Data;
+        unsigned CurrentIndex{};
+
+    };
+
+
+
+
+
+
+
+
+
 
 
 
@@ -59,14 +113,34 @@ template<typename DataType>
 DataType Matrix<DataType>::ComputeInnerSumThreadV2()
 {
 
-    std::vector<std::future<DataType>> rowSums(Rows);
+
+    auto start = std::chrono::steady_clock::now();
+    std::vector<std::shared_future<DataType>> rowSums(Rows);
+
+
+    auto accumulate = std::accumulate<typename RowType::const_iterator, DataType>;
 
     for(unsigned rowIndex=0; rowIndex< Rows; ++rowIndex)
     {
-        rowSums[rowIndex] = std::async(std::accumulate<typename RowType::const_iterator, DataType>,  Data[rowIndex].begin(), Data[rowIndex].end(), DataType{});
+        rowSums[rowIndex] = std::async(accumulate, Data[rowIndex].begin(),Data[rowIndex].end(), DataType{});
     }
 
 
+    DataType totalSum{};
+
+    for(auto rowSum: rowSums)
+    {
+        totalSum += rowSum.get();
+    }
+
+
+    auto end = std::chrono::steady_clock::now();
+
+    std::chrono::duration<double> seconds = end - start;
+    std::cout << "time: " << seconds.count() << "s\n";
+
+
+    return totalSum;
 
 }
 
@@ -87,7 +161,7 @@ DataType Matrix<DataType>::ComputeInnerSumThread()
     //creating
     for(unsigned rowIndex=0; rowIndex<Rows; ++rowIndex)
     {
-        threads.emplace_back(std::thread(accumulate, rowIndex , std::ref(rowSums[rowIndex])));
+        threads.emplace_back(std::thread(accumulate, rowIndex, std::ref(rowSums[rowIndex])));
     }
 
     //exect

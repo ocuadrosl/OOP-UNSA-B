@@ -20,6 +20,8 @@
 #include "Taxiab.h"
 #include "Pell.h"
 #include "Matrix.h"
+#include "Singleton.h"
+#include "Adapter.h"
 
 
 
@@ -169,18 +171,61 @@ void var(const oopb::MyVector& a)
 int main()
 {
 
+    auto foo  = [](std::unique_ptr<GeometricShape> gs)
+    {
+        std::cout<<gs->Volume()<<"\n";
+    };
 
-    myThread::Matrix<ComplexNumber> m{10,90000000};
+    Sphere sphere;
+
+    auto adaptedSphere = std::make_unique<SphereAdapter>(sphere);
+    adaptedSphere->SetRadius(10);
+
+    std::unique_ptr<GeometricShape> adapter = move(adaptedSphere);
+
+    foo(std::move(adapter));
+
+    std::cout<<sphere.GetName()<<"\n";
+
+
+
+
+
+
+ /*   new Manager{}; //crea singleton
+
+    Manager& m1{Manager::GetSingleton()};
+    m1.SetId(1);
+    m1.PrintId();
+
+    Manager& m2{Manager::GetSingleton()};
+    m2.PrintId();
+
+    Manager& m3{Manager::GetSingleton()};
+    m3.PrintId();
+
+    delete Manager::GetSingletonPointer();
+*/
+
+/*
+    myThread::Matrix<ComplexNumber> m{10,9};
 
     m[0][0] = {-10, 4};
-    m[1][1] = {20, 9};
+    m[0][1] = {20, 9};
 
-    //std::cout<<m.ComputeInnerSum()<<"\n";
+
+    auto it = m.Begin();
+    *it = {12,-9};
+    std::cout<<*it<<"\n";
+*/
+
+
+
+    /*
+    std::cout<<m.ComputeInnerSum()<<"\n";
     std::cout<<m.ComputeInnerSumThread()<<"\n";
     std::cout<<m.ComputeInnerSumThreadV2()<<"\n";
-
-
-
+*/
 
 
 
