@@ -21,7 +21,7 @@
 #include "Pell.h"
 #include "Matrix.h"
 #include "Singleton.h"
-#include "Adapter.h"
+#include "GeometricShape.h"
 
 
 
@@ -171,24 +171,27 @@ void var(const oopb::MyVector& a)
 int main()
 {
 
-    auto foo  = [](std::unique_ptr<GeometricShape> gs)
+    auto printShape = [](std::unique_ptr<GeometricShape> gs)
     {
         std::cout<<gs->Volume()<<"\n";
     };
 
+    std::unique_ptr<GeometricShape> cube = std::make_unique<Cube>();
+    //printShape(std::move(cube));
+
+
     Sphere sphere;
-
-    auto adaptedSphere = std::make_unique<SphereAdapter>(sphere);
-    adaptedSphere->SetRadius(10);
-
-    std::unique_ptr<GeometricShape> adapter = move(adaptedSphere);
-
-    foo(std::move(adapter));
-
     std::cout<<sphere.GetName()<<"\n";
 
+    std::unique_ptr<SphereAdapter> adaptedSphere = std::make_unique<SphereAdapter>(sphere);
+    adaptedSphere->SetRadius(10);
+    std::unique_ptr<GeometricShape> adaptedSpherePol = std::move(adaptedSphere);
+    printShape(std::move(adaptedSpherePol));
 
 
+
+
+    std::cout<<sphere.GetName()<<"\n";
 
 
 
@@ -208,17 +211,23 @@ int main()
 */
 
 /*
-    myThread::Matrix<ComplexNumber> m{10,9};
+    myThread::Matrix<ComplexNumber> m{50,70};
 
     m[0][0] = {-10, 4};
     m[0][1] = {20, 9};
 
 
-    auto it = m.Begin();
-    *it = {12,-9};
-    std::cout<<*it<<"\n";
-*/
 
+    myThread::Matrix<ComplexNumber>::Iterator it = m.Begin();
+    *it = {12,-9};
+    //std::cout<<*it<<"\n";
+
+
+    for( auto it = m.Begin(); it!=m.End(); ++it)
+    {
+        std::cout<<*it<<"\n";
+    }
+*/
 
 
     /*

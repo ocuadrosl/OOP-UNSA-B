@@ -35,7 +35,7 @@ public:
     class Iterator; //TODO  implement it!!!
 
     //out
-    Iterator Begin() //TODO  implement it!!!
+    Iterator Begin()
     {
         return  Iterator{Data, 0};
     }
@@ -52,21 +52,33 @@ public:
             CurrentIndex{index}
         {};
 
-        DataType& operator*()
+        DataType& operator*() //Set
         {
+            //convert array index to matrix index type
+            unsigned row = CurrentIndex / Data[0].size();
+            unsigned col = CurrentIndex % Data[0].size();
+
+            return Data[row][col];
+        }
+
+        const DataType& operator*() const //Get
+        {
+
             //convert array index to matrix index type
             unsigned row = CurrentIndex / Data[0].size();
             unsigned col = CurrentIndex % Data[0].size();
             return Data[row][col];
         }
 
-        const DataType& operator*() const
+        friend bool operator != (const Iterator& a, const Iterator& b)
         {
+            return a.CurrentIndex != b.CurrentIndex;
+        }
 
-            //convert array index to matrix index type
-            unsigned row = CurrentIndex / Data[0].size();
-            unsigned col = CurrentIndex % Data[0].size();
-            return Data[row][col];
+        Iterator& operator++() //Next
+        {
+            ++CurrentIndex;
+            return *this;
         }
 
 
@@ -75,16 +87,6 @@ public:
         unsigned CurrentIndex{};
 
     };
-
-
-
-
-
-
-
-
-
-
 
 
 };
